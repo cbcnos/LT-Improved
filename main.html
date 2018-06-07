@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!--script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script-->
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <title>LT Improved</title>
+    </head>
+    
+    <body>
+        <div class="container-fluid">
+        
+            <!-- Title bar -->
+            <div class="row red">
+                <img id="logo" src="img/logo_white.png" alt="Logo">
+                <img id="close" src="img/close.png" alt="Fechar">
+                <h4 id="title">LT Improved - Projeto 1</h4>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="row red">
+                <ul class="nav nav-tabs" id="tabs">
+                    <li class="active"><a href="#">Página inicial</a></li>
+                    <li><a href="#">Simulação</a></li>
+                    <li><a href="#">Ferramentas</a></li>
+                    <li><a href="#">Configurações</a></li>
+                </ul>
+            </div>
+            
+            <!-- Toolbar -->
+            <div class="row gray">
+                <ul class="list-inline" id="menu">
+                    <li class="button"><a href="#">
+                        <img src="img/blank-file.png">
+                        <p>Novo</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/open-file.png">
+                        <p>Abrir</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/save.png">
+                        <p>Salvar</p>
+                    </a></li>
+                    
+                    <li class="divider"></li>
+                    
+                    <li class="button"><a href="#">
+                        <img src="img/play.png">
+                        <p>Simular</p>
+                    </a></li>
+                    
+                    <li class="divider"></li>
+                    
+                    <li class="button"><a href="#">
+                        <img src="img/zoom-out.png">
+                        <p>Reduzir</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/zoom-in.png">
+                        <p>Ampliar</p>
+                    </a></li>
+                    
+                    <li class="divider"></li>
+                    
+                    <li class="button"><a href="#">
+                        <img src="img/copy.png" >
+                        <p>Copiar</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/cut.png" >
+                        <p>Recortar</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/paste.png" >
+                        <p>Colar</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/delete.png" >
+                        <p>Deletar</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/rotate.png" >
+                        <p>Girar</p>
+                    </a></li>
+                    
+                    <li class="divider"></li>
+                    
+                    <li class="button"><a href="#">
+                        <img src="img/undo.png" >
+                        <p>Desfazer</p>
+                    </a></li>
+                    <li class="button"><a href="#">
+                        <img src="img/redo.png" >
+                        <p>Refazer</p>
+                    </a></li>
+                    
+                    <li class="divider"></li>
+                    
+                    <li class="button"><a href="#">
+                        <img src="img/pencil.png" >
+                        <p>Anotação</p>
+                    </a></li>
+                </ul>
+            </div>
+            
+            <!-- Content -->
+            <div class="row" id="content">
+            
+                <!-- Add component -->
+                <div class="gray bar-left">
+                
+                    <p>Adicionar componente</p>
+                    
+                    <form>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Pesquisar (Ctrl + F)">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                          Componentes gerais
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                          <div class="panel-body">
+                          <!-- style="transform: rotate(-90deg)" -->
+                            <div class="component" data-type="capacitor">
+                                <svg viewBox="0 0 48 16">
+                                    <g stroke="#000" stroke-width="2" fill="none">
+                                        <path d="m 0,8 21,0"/>
+                                        <path d="m 21,0 0,16"/>
+                                        <path d="m 27,0 0,16"/>
+                                        <path d="m 27,8 21,0"/>
+                                    </g>
+                                </svg>
+                              <span>Capacitor</span>
+                            </div>
+                            <div class="component" data-type="fonte">
+                                <svg viewBox="0 0 56 48">
+                                    <g stroke="#000" stroke-width="2" fill="none">
+                                        <circle fill="#FFFFFF00" cy="24" cx="28" r="20"></circle>
+                                        <path d="m 0,24 8,0"></path>
+                                        <path d="m 48,24 8,0"></path>
+                                        <path d="m 34,24 8,0"></path>
+                                        <path d="m 38,20 0,8"></path>
+                                        <path d="m 14,24 8,0"></path>
+                                    </g>
+                                </svg>
+                              <span>Fonte de tensão</span>
+                            </div>
+                            <div class="component" data-type="indutor">
+                                <svg viewBox="0 0 48 6">
+                                    <g stroke="#000" stroke-width="2" fill="none">
+                                        <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"/>
+                                    </g>
+                                </svg>
+                              <span>Indutor</span>
+                            </div>
+                            <div class="component" data-type="resistor">
+                                <svg viewBox="0 0 48 8">
+                                    <g stroke="#000" stroke-width="2" fill="none">
+                                        <path d="m 0,4 12,0 2,4 4,-8 4,8 4,-8 4,8 4,-8 2,4 12,0"/>
+                                    </g>
+                                </svg>
+                              <span>Resistor</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                          ADC
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                                <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                          Amplificadores
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                          Comparadores
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                          Componentes analógicos
+                        </div>
+                        <div id="collapse5" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                          Componentes digitais
+                        </div>
+                        <div id="collapse6" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                          Funções especiais
+                        </div>
+                        <div id="collapse7" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                          Misc
+                        </div>
+                        <div id="collapse8" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <div class="component" data-type="exemplo">
+                              <svg id="temp" viewBox="0 7 48 34">
+                                    <g stroke="#000" stroke-width="2" fill="#FFFFFF00">
+                                        <path d="m 0,24 8,0"/>
+                                        <path d="m 40,24 8,0"/>
+                                        <circle cy="24" cx="24" r="16"/>
+                                        <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"/>
+                                        <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"/>
+                                    </g>
+                                </svg>
+                              <span>Componente exemplo</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+                <!-- Canvas -->
+                <div id="canvas" class="canvas">
+                    <img src="img/circuito.png" id="circuito">
+                </div>
+                
+                <!-- Edit component -->
+                <div class="gray bar-right">
+                    <p>Editar componente</p>
+                    <p>Selecione um componente do canvas para editá-lo.</p>
+                </div>
+            </div>
+        </div>
+        
+        <script>            
+            function getCanvasCorners() {
+                let offset = $("#canvas").offset();
+                return {
+                    top: offset.top,
+                    left: offset.left,
+                    bottom: offset.top + $("#canvas").height(),
+                    right: offset.left+ $("#canvas").width()
+                }
+            }
+            
+            let copia = $("#temp").clone();
+            copia.attr("id", "novo");
+            copia.css("position", "absolute");
+            copia.css("width", "50px");
+            $("#canvas").append(copia);
+            
+            console.log(getCanvasCorners());
+            
+            let corners = getCanvasCorners();
+            $(document).mousemove(function(e){
+                if (e.pageX >= corners.left && e.pageY >= corners.top && e.pageX <= corners.right-copia.width() && e.pageY <= corners.bottom-copia.height()) {
+                    copia.css('top', e.pageY + 'px');
+                    copia.css('left', e.pageX + 'px');
+                }
+            });
+        </script>
+    </body>
+    
+</html>
