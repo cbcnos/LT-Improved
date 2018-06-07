@@ -201,6 +201,8 @@ html, body {
     height: 45px;
     vertical-align: middle;
     margin-right: 4px;
+    border-width: 2px;
+    border-color: #9a00297a;
 }
 
 .canvas {

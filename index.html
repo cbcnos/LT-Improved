@@ -166,7 +166,7 @@
                               <span>Fonte de tensão</span>
                             </div>
                             <div class="component" data-type="indutor">
-                                <svg viewBox="0 0 48 6">
+                                <svg viewBox="0 -2 48 8">
                                     <g stroke="#000" stroke-width="2" fill="none">
                                         <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"/>
                                     </g>
@@ -372,21 +372,48 @@
                 }
             }
             
-            let copia = $("#temp").clone();
-            copia.attr("id", "novo");
-            copia.css("position", "absolute");
-            copia.css("width", "50px");
-            $("#canvas").append(copia);
-            
-            console.log(getCanvasCorners());
-            
             let corners = getCanvasCorners();
-            $(document).mousemove(function(e){
-                if (e.pageX >= corners.left && e.pageY >= corners.top && e.pageX <= corners.right-copia.width() && e.pageY <= corners.bottom-copia.height()) {
-                    copia.css('top', e.pageY + 'px');
-                    copia.css('left', e.pageX + 'px');
+            
+            $(document).on("click", ".component", function(){
+                console.log($(this).attr('data-type'));
+                unselect();
+                selected = $(this);
+                element = selected.find("svg").clone();
+                selected.find("svg").css("border-style", "dashed");
+                element.css("position", "absolute");
+                element.css("width", "75px");
+                //element.css("transform", "rotate(-90deg)");
+                element.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
+                element.css('left', corners.left + 'px');
+                $("#canvas").append(element);
+            });
+            
+            $("#canvas").mousemove(function(e){
+                if (selected &&
+                        e.pageX >= corners.left && 
+                        e.pageY >= corners.top && 
+                        e.pageX <= corners.right && 
+                        e.pageY <= corners.bottom) {
+                    //console.log(e.pageX + ' ' + e.pageY,);
+                    element.css('top', Math.min(e.pageY, corners.bottom-element.height()) + 'px');
+                    element.css('left', Math.min(e.pageX, corners.right-element.width()) + 'px');
                 }
             });
+            
+            $("#canvas").click(function(){
+                if (element) {
+                    element = null;
+                    unselect();
+                }
+            });
+            
+            $(document).keydown(function(e) {
+                // escape key
+                if (e.keyCode == 27) {
+                    unselect();
+                }
+            });
+            
         </script>
     </body>
     
