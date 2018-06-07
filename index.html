@@ -336,7 +336,6 @@
                 
                 <!-- Canvas -->
                 <div id="canvas" class="canvas">
-                    <img src="img/circuito.png" id="circuito">
                 </div>
                 
                 <!-- Edit component -->
@@ -361,7 +360,22 @@
             </div>
         </div>
         
-        <script>            
+        <script>                 
+            
+            var selected = null;
+            var element = null;
+            
+            function unselect() {
+                if (selected) {
+                    selected.find("svg").css("border-style", "none");
+                    selected = null;
+                }
+                if (element) {
+                    element.remove();
+                    element = null;
+                }
+            }
+            
             function getCanvasCorners() {
                 let offset = $("#canvas").offset();
                 return {
