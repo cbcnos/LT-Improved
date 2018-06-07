@@ -337,7 +337,7 @@
                 <!-- Canvas -->
                 <div id="canvas" class="canvas">
                     <!-- Capacitor rotacionado -->
-                    <svg viewBox="16 -16 16 48" data-shift="-14" style="position: absolute;height: 90px;top: 236px;left: 448px;">
+                    <svg viewBox="16 -16 16 48" class="model" data-type="capacitor" data-shift="-14" style="position: absolute;height: 90px;top: 236px;left: 448px; display:none;">
                         <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 8)">
                             <path d="m 0,8 21,0"></path>
                             <path d="m 21,0 0,16"></path>
@@ -346,30 +346,30 @@
                         </g>
                     </svg>
                     <!-- Fonte rotacionada -->
-                    <svg viewBox="-2 -4 44 56" data-shift="-35" style="position: absolute; height: 90px; top: 251px; left: 542px;">
+                    <svg viewBox="-2 -4 44 56" class="model" data-type="fonte" data-shift="-35" style="position: absolute; height: 90px; top: 251px; left: 542px; display:none;">
                         <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 20)">
                             <circle fill="#FFFFFF00" cy="24" cx="28" r="20"></circle>
                             <path d="m 0,24 8,0"></path>
                             <path d="m 48,24 8,0"></path>
-                            <path d="m 34,24 8,0"></path>
+                            <path d="m 18,20 0,8"></path>
                             <path d="m 38,20 0,8"></path>
                             <path d="m 14,24 8,0"></path>
                         </g>
                     </svg>
                     <!-- Indutor rotacionado -->
-                    <svg viewBox="22 -20 8 48" data-shift="-3" style="position: absolute; height: 90px; top: 318px; left: 479px;">
+                    <svg viewBox="22 -20 8 48" class="model" data-type="indutor" data-shift="-3" style="position: absolute; height: 90px; top: 318px; left: 479px; display:none;">
                         <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
                             <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"></path>
                         </g>
                     </svg>
                     <!-- Resistor rotacionado -->
-                    <svg viewBox="18 -20 12 48" data-shift="-11" style="border-style: none; position: absolute; height: 90px; top: 343px; left: 331px;">
+                    <svg viewBox="18 -20 12 48" class="model" data-type="resistor" data-shift="-11" style="border-style: none; position: absolute; height: 90px; top: 343px; left: 331px; display:none;">
                         <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
                             <path d="m 0,4 12,0 2,4 4,-8 4,8 4,-8 4,8 4,-8 2,4 12,0"></path>
                         </g>
                     </svg>
                     <!-- Genérico rotacionado -->
-                    <svg viewBox="7 0 34 48" data-shift="-31" style="border-style: none; position: absolute; height: 90px; top: 408px; left: 450px;">
+                    <svg viewBox="7 0 34 48" class="model" data-type="exemplo" data-shift="-31" style="border-style: none; position: absolute; height: 90px; top: 408px; left: 450px; display:none;">
                         <g stroke="#000" stroke-width="2" fill="#FFFFFF00" transform="rotate(90, 24, 24)">
                             <path d="m 0,24 8,0"></path>
                             <path d="m 40,24 8,0"></path>
@@ -379,7 +379,7 @@
                         </g>
                     </svg>
                     <!-- Quadrado do terminal -->
-                    <svg viewBox="0 0 16 16" style="position: absolute; height: 16px; top: 310px; left: 471px;">
+                    <svg id="square" viewBox="0 0 16 16" style="position: absolute; height: 16px; top: 310px; left: 471px; display:none;">
                         <rect width="16" height="16" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
                     </svg>
                 </div>
@@ -441,10 +441,9 @@
                 console.log($(this).attr('data-type'));
                 unselect();
                 selected = $(this);
-                element = selected.find("svg").clone();
+                element = $(".model[data-type='" + selected.attr("data-type") + "']").clone().show();
                 selected.find("svg").css("border-style", "dashed");
                 element.css("position", "absolute");
-                element.css("width", "75px");
                 //element.css("transform", "rotate(-90deg)");
                 element.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
                 element.css('left', corners.left + 'px');
