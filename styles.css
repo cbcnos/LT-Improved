@@ -123,6 +123,7 @@ html, body {
     margin: 0;
 }
 
+/* Left bar */
 .bar-left {
     flex: 0 0 20%;
     min-width: 240px;
@@ -200,13 +201,45 @@ html, body {
     border-color: #9a00297a;
 }
 
+/* Canvas */
 .canvas {
     flex-grow: 1;
     height: 100%;
     background-size: 15px 15px;
     background-image: linear-gradient(to right, #c9c9c9 1px, transparent 1px), linear-gradient(to bottom, #c9c9c9 1px, transparent 1px);
+    cursor: crosshair;
 }
 
+.bigComponent {
+    height: 91px;
+    position: absolute;
+    top: 7px;
+    cursor: move;
+    border-style: none;
+    border-color: #42f480;
+}
+
+.squareUp {
+    height: 15px;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.squareDown {
+    height: 15px;
+    position: absolute;
+    top: 90px;
+    opacity: 0;
+    cursor: pointer;
+    display: none;
+}
+
+.squareDown:hover {
+    opacity: 1;
+}
+
+/* Right bar */
 .bar-right {
     flex: 0 0 18%;
     min-width: 200px;
