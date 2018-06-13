@@ -522,6 +522,27 @@
                 fixing.css('left', Math.round((parseInt(fixing.css('left')) - corners.left) / 15.0) * 15 + corners.left);
             }
             
+            // enable the dragginb behavior for a component
+            function enableComponentDrag (element) {
+                element.draggable({
+                    // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
+                    containment: [corners.left-parseInt(element.css('margin-left')), 
+                                    corners.top, 
+                                    corners.right-element.width()+parseInt(element.css('margin-left')), 
+                                    corners.bottom-element.height()],
+                    scroll: false,
+                    start: function() {
+                        $(this).find('.bigComponent').css('border-style', 'dashed');
+                        $(this).find('.squareDown').hide();
+                    },
+                    stop: function() {
+                        $(this).find('.bigComponent').css('border-style', 'none');
+                        $(this).find('.squareDown').show();
+                        fixPosition($(this));
+                    }
+                });
+            }
+            
             //drop the component
             $("#canvas").click(function(){
                 if (selected && component) {
@@ -533,24 +554,15 @@
                     component.find(".squareUp").show();
                     component.find(".squareDown").show();
                     
-                    // allow the component to be dragged
-                    component.draggable({
-                        // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
-                        containment: [corners.left-parseInt(component.css('margin-left')), 
-                                        corners.top, 
-                                        corners.right-component.width()+parseInt(component.css('margin-left')), 
-                                        corners.bottom-component.height()],
-                        scroll: false,
-                        start: function() {
-                            $(this).find('.bigComponent').css('border-style', 'dashed');
-                            $(this).find('.squareDown').hide();
-                        },
-                        stop: function() {
-                            $(this).find('.bigComponent').css('border-style', 'none');
-                            $(this).find('.squareDown').show();
-                            fixPosition($(this));
-                        }
+                    // configure the wire drawing on the poles
+                    component.find(".squareUp").mousedown(function(){
+                        $(this).parent().draggable("disable");
+                    }).mouseup(function(){
+                        $(this).parent().draggable("enable");
                     });
+                    
+                    // allow the component to be dragged
+                    enableComponentDrag(component);
                     
                     component = null;
                     unselect();
