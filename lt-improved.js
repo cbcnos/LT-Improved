@@ -29,6 +29,15 @@ function getCanvasCorners() {
 
 let corners = getCanvasCorners();
 
+//listen to canvas resize events
+$(window).resize(function(){
+    corners = getCanvasCorners();
+    $("div[data-id]").each(function(){
+        $(this).draggable('option', 'containment', getDragContainment($(this)));
+    });
+});
+ 
+
 //pick the component
 $(document).on("click", ".component", function(){
     // unselect any previous elements
@@ -59,8 +68,7 @@ $("#canvas").mousemove(function(e){
                 Y <= corners.bottom) {
             //console.log(e.pageX + ' ' + e.pageY,);
             component.css('top', Math.min(Y, corners.bottom-component.height()) + 'px');
-            component.css('left', Math.min(X-parseInt(component.css('margin-left')), corners.right-component.width()+parseInt(component.css('margin-left'))) + 'px');
-            //console.log("left: " + component.css('left') + "  offset: " + component.offset().left);
+            component.css('left', Math.min(X-parseInt(component.css('margin-left')), corners.right-component.find('.bigComponent').width()-parseInt(component.css('margin-left'))) + 'px');
         }
     }
 });
@@ -71,14 +79,19 @@ function fixPosition (fixing) {
     fixing.css('left', Math.round((parseInt(fixing.css('left')) - corners.left) / 15.0) * 15 + corners.left);
 }
 
+// return the containment to drag an element
+function getDragContainment(element) {
+    return [corners.left-parseInt(element.css('margin-left')), 
+            corners.top, 
+            corners.right-element.find('.bigComponent').width()-parseInt(element.css('margin-left')), 
+            corners.bottom-element.height()];
+}
+
 // enable the dragginb behavior for a component
 function enableComponentDrag (element) {
     element.draggable({
         // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
-        containment: [corners.left-parseInt(element.css('margin-left')), 
-                        corners.top, 
-                        corners.right-element.width()+parseInt(element.css('margin-left')), 
-                        corners.bottom-element.height()],
+        containment: getDragContainment(element),
         scroll: false,
         start: function() {
             $(this).find('.bigComponent').css('border-style', 'dashed');
