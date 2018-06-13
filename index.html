@@ -9,7 +9,7 @@
 
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <!--script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script-->
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -336,52 +336,93 @@
                 
                 <!-- Canvas -->
                 <div id="canvas" class="canvas">
+                
                     <!-- Capacitor rotacionado -->
-                    <svg viewBox="16 -16 16 48" class="model" data-type="capacitor" data-shift="14" style="position: absolute;height: 90px;top: 236px;left: 448px; display:none;">
-                        <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 8)">
-                            <path d="m 0,8 21,0"></path>
-                            <path d="m 21,0 0,16"></path>
-                            <path d="m 27,0 0,16"></path>
-                            <path d="m 27,8 21,0"></path>
-                        </g>
-                    </svg>
+                    <div class="model" data-type="capacitor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -14px;">
+                        <svg class="bigComponent" viewBox="16 -16 16 48">
+                            <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 8)">
+                                <path d="m 0,8 21,0"></path>
+                                <path d="m 21,0 0,16"></path>
+                                <path d="m 27,0 0,16"></path>
+                                <path d="m 27,8 21,0"></path>
+                            </g>
+                        </svg>
+                        <svg class="squareUp" viewBox="0 0 15 15" style="left: 7px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="squareDown" viewBox="0 0 15 15" style="left:7px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                    </div>
+                    
                     <!-- Fonte rotacionada -->
-                    <svg viewBox="-2 -4 44 56" class="model" data-type="fonte" data-shift="35" style="position: absolute; height: 90px; top: 251px; left: 542px; display:none;">
-                        <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 20)">
-                            <circle fill="#FFFFFF00" cy="24" cx="28" r="20"></circle>
-                            <path d="m 0,24 8,0"></path>
-                            <path d="m 48,24 8,0"></path>
-                            <path d="m 18,20 0,8"></path>
-                            <path d="m 38,20 0,8"></path>
-                            <path d="m 14,24 8,0"></path>
-                        </g>
-                    </svg>
+                    <div class="model" data-type="fonte" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -35px;">
+                        <svg class="bigComponent" viewBox="-2 -4 44 56">
+                            <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 20)">
+                                <circle fill="#FFFFFF00" cy="24" cx="28" r="20"></circle>
+                                <path d="m 0,24 8,0"></path>
+                                <path d="m 48,24 8,0"></path>
+                                <path d="m 18,20 0,8"></path>
+                                <path d="m 38,20 0,8"></path>
+                                <path d="m 14,24 8,0"></path>
+                            </g>
+                        </svg>
+                        <svg class="squareUp" viewBox="0 0 15 15" style="left: 28px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="squareDown" viewBox="0 0 15 15" style="left:28px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                    </div>
+                    
                     <!-- Indutor rotacionado -->
-                    <svg viewBox="23 -20 8 48" class="model" data-type="indutor" data-shift="2" style="position: absolute; height: 90px; top: 318px; left: 479px; display:none;">
-                        <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
-                            <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"></path>
-                        </g>
-                    </svg>
+                    <div class="model" data-type="indutor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -2px;">
+                        <svg class="bigComponent" viewBox="23 -20 8 48">
+                            <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
+                                <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"></path>
+                            </g>
+                        </svg>
+                        <svg class="squareUp" viewBox="0 0 15 15" style="left: -6px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="squareDown" viewBox="0 0 15 15" style="left:-6px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                    </div>
+                    
                     <!-- Resistor rotacionado -->
-                    <svg viewBox="18 -20 12 48" class="model" data-type="resistor" data-shift="11" style="border-style: none; position: absolute; height: 90px; top: 343px; left: 331px; display:none;">
-                        <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
-                            <path d="m 0,4 12,0 2,4 4,-8 4,8 4,-8 4,8 4,-8 2,4 12,0"></path>
-                        </g>
-                    </svg>
+                    <div class="model" data-type="resistor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -11px;">
+                        <svg class="bigComponent" viewBox="18 -20 12 48">
+                            <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
+                                <path d="m 0,4 12,0 2,4 4,-8 4,8 4,-8 4,8 4,-8 2,4 12,0"></path>
+                            </g>
+                        </svg>
+                        <svg class="squareUp" viewBox="0 0 15 15" style="left: 4px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="squareDown" viewBox="0 0 15 15" style="left:4px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                    </div>
+                    
                     <!-- Genérico rotacionado -->
-                    <svg viewBox="7 0 34 48" class="model" data-type="exemplo" data-shift="31" style="border-style: none; position: absolute; height: 90px; top: 408px; left: 450px; display:none;">
-                        <g stroke="#000" stroke-width="2" fill="#FFFFFF00" transform="rotate(90, 24, 24)">
-                            <path d="m 0,24 8,0"></path>
-                            <path d="m 40,24 8,0"></path>
-                            <circle cy="24" cx="24" r="16"></circle>
-                            <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"></path>
-                            <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"></path>
-                        </g>
-                    </svg>
-                    <!-- Quadrado do terminal -->
-                    <svg id="square" viewBox="0 0 16 16" style="position: absolute; height: 16px; top: 310px; left: 471px; display:none;">
-                        <rect width="16" height="16" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
-                    </svg>
+                    <div class="model" data-type="exemplo" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -31px;">
+                        <svg class="bigComponent" viewBox="7 0 34 48">
+                            <g stroke="#000" stroke-width="2" fill="#FFFFFF00" transform="rotate(90, 24, 24)">
+                                <path d="m 0,24 8,0"></path>
+                                <path d="m 40,24 8,0"></path>
+                                <circle cy="24" cx="24" r="16"></circle>
+                                <path transform="rotate(45, 24, 24)" d="m 24,8 0,32"></path>
+                                <path transform="rotate(-45, 24, 24)" d="m 24,8 0,32"></path>
+                            </g>
+                        </svg>
+                        <svg class="squareUp" viewBox="0 0 15 15" style="left: 24px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="squareDown" viewBox="0 0 15 15" style="left:24px;">
+                            <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                    </div>
                 </div>
                 
                 <!-- Edit component -->
@@ -444,38 +485,69 @@
                 element = $(".model[data-type='" + selected.attr("data-type") + "']").clone().show();
                 element.removeAttr("class");
                 element.css("position", "absolute");
-                //element.css("transform", "rotate(-90deg)");
                 element.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
-                element.css('left', corners.left + 'px');
+                element.css('left', (corners.left-parseInt(element.css('margin-left'))) + 'px');
                 $("#canvas").append(element);
                 selected.find("svg").css("border-style", "dashed");
             });
             
             //carry the component
             $("#canvas").mousemove(function(e){
-                if (selected &&
-                        e.pageX >= corners.left && 
-                        e.pageY >= corners.top && 
-                        e.pageX <= corners.right && 
-                        e.pageY <= corners.bottom) {
-                    //console.log(e.pageX + ' ' + e.pageY,);
-                    element.css('top', Math.min(e.pageY, corners.bottom-element.height()) + 'px');
-                    element.css('left', Math.min(e.pageX, corners.right-element.width()) + 'px');
+                if (selected) {
+                    let X = e.pageX;
+                    let Y = e.pageY;
+                    if (    X >= corners.left && 
+                            Y >= corners.top && 
+                            X <= corners.right && 
+                            Y <= corners.bottom) {
+                        //console.log(e.pageX + ' ' + e.pageY,);
+                        element.css('top', Math.min(Y, corners.bottom-element.height()) + 'px');
+                        element.css('left', Math.min(X-parseInt(element.css('margin-left')), corners.right-element.width()+parseInt(element.css('margin-left'))) + 'px');
+                        //console.log("left: " + element.css('left') + "  offset: " + element.offset().left);
+                    }
                 }
             });
             
+            function fixPosition (fixing) {
+                // fix the element position
+                fixing.css('top', Math.round((parseInt(fixing.css('top')) - corners.top) / 15.0) * 15 + corners.top);
+                fixing.css('left', Math.round((parseInt(fixing.css('left')) - corners.left) / 15.0) * 15 + corners.left);
+            }
+            
             //drop the component
             $("#canvas").click(function(){
-                if (element) {
-                    // fix element position
-                    let offset = element.offset();
-                    element.css('top', Math.round((offset.top - corners.top) / 15.0) * 15 + corners.top);
-                    let shift = parseInt(element.attr('data-shift'));
-                    element.css('left', Math.round((offset.left - corners.left + shift) / 15.0) * 15 + corners.left - shift);
+                if (selected && element) {
                     
-                    // add the terminal squares
-                    //let square1 = $("#square").clone().show();
-                    //square1.left
+                    fixPosition(element);
+                    
+                    // add hover effect to the upper pole square
+                    element.find(".squareUp").hover(function(){
+                        $(this).css('opacity', '1');
+                    }, function() {
+                        $(this).css('opacity', '0');
+                    });
+                    
+                    // show the lower square
+                    element.find(".squareDown").show();
+                    
+                    // allow the element to be dragged
+                    element.draggable({
+                        // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
+                        containment: [corners.left-parseInt(element.css('margin-left')), 
+                                        corners.top, 
+                                        corners.right-element.width()+parseInt(element.css('margin-left')), 
+                                        corners.bottom-element.height()],
+                        scroll: false,
+                        start: function() {
+                            $(this).find('.bigComponent').css('border-style', 'dashed');
+                            $(this).find('.squareDown').hide();
+                        },
+                        stop: function() {
+                            $(this).find('.bigComponent').css('border-style', 'none');
+                            $(this).find('.squareDown').show();
+                            fixPosition($(this));
+                        }
+                    });
                     
                     element = null;
                     unselect();
