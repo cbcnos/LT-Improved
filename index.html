@@ -508,8 +508,8 @@
                 }
             });
             
+            // adjusts an element position to fit the grid
             function fixPosition (fixing) {
-                // fix the element position
                 fixing.css('top', Math.round((parseInt(fixing.css('top')) - corners.top) / 15.0) * 15 + corners.top);
                 fixing.css('left', Math.round((parseInt(fixing.css('left')) - corners.left) / 15.0) * 15 + corners.left);
             }
@@ -518,16 +518,11 @@
             $("#canvas").click(function(){
                 if (selected && element) {
                     
+                    // fix the position 
                     fixPosition(element);
                     
-                    // add hover effect to the upper pole square
-                    element.find(".squareUp").hover(function(){
-                        $(this).css('opacity', '1');
-                    }, function() {
-                        $(this).css('opacity', '0');
-                    });
-                    
-                    // show the lower square
+                    // show the pole squares
+                    element.find(".squareUp").show();
                     element.find(".squareDown").show();
                     
                     // allow the element to be dragged
