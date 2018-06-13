@@ -224,6 +224,11 @@ html, body {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    display: none;
+}
+
+.squareUp:hover {
+    opacity: 1;
 }
 
 .squareDown {
