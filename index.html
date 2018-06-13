@@ -452,16 +452,19 @@
             //panel item
             var selected = null;
             //mouse component
-            var element = null;
+            var component = null;
+            
+            // last component id
+            var id = 0;
             
             function unselect() {
                 if (selected) {
                     selected.find("svg").css("border-style", "none");
                     selected = null;
                 }
-                if (element) {
-                    element.remove();
-                    element = null;
+                if (component) {
+                    component.remove();
+                    component = null;
                 }
             }
             
@@ -479,16 +482,21 @@
             
             //pick the component
             $(document).on("click", ".component", function(){
-                console.log($(this).attr('data-type'));
+                // unselect any previous elements
                 unselect();
+                
+                // select this element
                 selected = $(this);
-                element = $(".model[data-type='" + selected.attr("data-type") + "']").clone().show();
-                element.removeAttr("class");
-                element.css("position", "absolute");
-                element.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
-                element.css('left', (corners.left-parseInt(element.css('margin-left'))) + 'px');
-                $("#canvas").append(element);
                 selected.find("svg").css("border-style", "dashed");
+                
+                // create the new component
+                component = $(".model[data-type='" + selected.attr("data-type") + "']").clone().show();
+                component.attr('data-id', id++);
+                component.removeAttr("class");
+                component.css("position", "absolute");
+                component.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
+                component.css('left', (corners.left-parseInt(component.css('margin-left'))) + 'px');
+                $("#canvas").append(component);
             });
             
             //carry the component
@@ -501,14 +509,14 @@
                             X <= corners.right && 
                             Y <= corners.bottom) {
                         //console.log(e.pageX + ' ' + e.pageY,);
-                        element.css('top', Math.min(Y, corners.bottom-element.height()) + 'px');
-                        element.css('left', Math.min(X-parseInt(element.css('margin-left')), corners.right-element.width()+parseInt(element.css('margin-left'))) + 'px');
-                        //console.log("left: " + element.css('left') + "  offset: " + element.offset().left);
+                        component.css('top', Math.min(Y, corners.bottom-component.height()) + 'px');
+                        component.css('left', Math.min(X-parseInt(component.css('margin-left')), corners.right-component.width()+parseInt(component.css('margin-left'))) + 'px');
+                        //console.log("left: " + component.css('left') + "  offset: " + component.offset().left);
                     }
                 }
             });
             
-            // adjusts an element position to fit the grid
+            // adjusts an component position to fit the grid
             function fixPosition (fixing) {
                 fixing.css('top', Math.round((parseInt(fixing.css('top')) - corners.top) / 15.0) * 15 + corners.top);
                 fixing.css('left', Math.round((parseInt(fixing.css('left')) - corners.left) / 15.0) * 15 + corners.left);
@@ -516,22 +524,22 @@
             
             //drop the component
             $("#canvas").click(function(){
-                if (selected && element) {
+                if (selected && component) {
                     
                     // fix the position 
-                    fixPosition(element);
+                    fixPosition(component);
                     
                     // show the pole squares
-                    element.find(".squareUp").show();
-                    element.find(".squareDown").show();
+                    component.find(".squareUp").show();
+                    component.find(".squareDown").show();
                     
-                    // allow the element to be dragged
-                    element.draggable({
+                    // allow the component to be dragged
+                    component.draggable({
                         // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
-                        containment: [corners.left-parseInt(element.css('margin-left')), 
+                        containment: [corners.left-parseInt(component.css('margin-left')), 
                                         corners.top, 
-                                        corners.right-element.width()+parseInt(element.css('margin-left')), 
-                                        corners.bottom-element.height()],
+                                        corners.right-component.width()+parseInt(component.css('margin-left')), 
+                                        corners.bottom-component.height()],
                         scroll: false,
                         start: function() {
                             $(this).find('.bigComponent').css('border-style', 'dashed');
@@ -544,7 +552,7 @@
                         }
                     });
                     
-                    element = null;
+                    component = null;
                     unselect();
                 }
             });
