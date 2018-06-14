@@ -2,6 +2,8 @@
 var panelItem = null;
 //mouse newComponent
 var newComponent = null;
+//selected component after it's first insertion
+var selectedComponent = null;
 //mouse wire
 var newWire = null;
 
@@ -9,13 +11,17 @@ var newWire = null;
 var id = 0;
 
 function unselect() {
-    if (panelItem) {
+    if(panelItem) {
         panelItem.find("svg").css("border-style", "none");
         panelItem = null;
     }
-    if (newComponent) {
+    if(newComponent) {
         newComponent.remove();
         newComponent = null;
+    }
+    if(selectedComponent){
+        selectedComponent.find('.bigComponent').css('border-style', 'none');
+        selectedComponent = null;
     }
 }
 
@@ -90,7 +96,7 @@ function getDragContainment(element) {
 }
 
 // enable the dragginb behavior for a component
-function enableComponentDrag (element) {
+function enableComponentDrag(element) {
     element.draggable({
         // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
         containment: getDragContainment(element),
@@ -105,6 +111,15 @@ function enableComponentDrag (element) {
             fixPosition($(this));
         }
     });
+}
+
+// enable the selection behavior for a component
+function enableComponentSelection(element) {
+    element[0].addEventListener('click', function(){
+        selectedComponent = $(this);
+        selectedComponent.find('.bigComponent').css('border-style', 'dashed');
+
+    }, true);
 }
 
 function drawWire(wire) {
@@ -124,7 +139,7 @@ function drawWire(wire) {
 }
 
 //drop the component
-$("#canvas").click(function(){
+$("#canvas")[0].addEventListener('click', function(){
     if (panelItem && newComponent) {
         
         // fix the position 
@@ -149,11 +164,17 @@ $("#canvas").click(function(){
         
         // allow the component to be dragged
         enableComponentDrag(newComponent);
+
+        // allow the component to be selected
+        enableComponentSelection(newComponent);
         
         newComponent = null;
         unselect();
     }
-});
+    if(selectedComponent){
+        unselect();
+    }
+}, true);
 
 //set ESC to unselect everything
 $(document).keydown(function(e) {
