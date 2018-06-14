@@ -135,11 +135,11 @@ function enableComponentDrag(element) {
 
 // enable the selection behavior for a component
 function enableComponentSelection(element) {
-    element[0].addEventListener('click', function(){
+    element.find('.bigComponent')[0].addEventListener('click', function(){
         //if(selectedComponent.attr('data-id') != this.getAttribute('data-id')){
 
         //get the selected component
-        selectedComponent = $(this);
+        selectedComponent = $(this).parent();
         //change it's border
         selectedComponent.find('.bigComponent').css('border-style', 'dashed');
         //get it's values
