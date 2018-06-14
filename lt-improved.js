@@ -247,16 +247,17 @@ function drawWire(wire) {
     let newPath = 'M' + (origin.X-min.X) + ' ' + (origin.Y-min.Y);
     points.forEach(function(point, index){
         let prev = (index == 0 ? origin : points[index-1]);
-        newPath += ' L' + (prev.X-min.X) + ' ' + (point.Y-min.Y);
+        if (vertical)
+            newPath += ' L' + (prev.X-min.X) + ' ' + (point.Y-min.Y);
+        else 
+            newPath += ' L' + (point.X-min.X) + ' ' + (prev.Y-min.Y);
         newPath += ' L' + (point.X-min.X) + ' ' + (point.Y-min.Y);
+        vertical = !vertical;
     });
     
-    //console.log(newPath);
-    
+    // apply the created path 
     wire.find('path').attr('d', newPath);
-    
-    // add any extra points
-    
+    //console.log(newPath);
 }
 
 function enableWireSelection (wire) {
