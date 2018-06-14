@@ -338,7 +338,7 @@
                 <div id="canvas" class="canvas">
                 
                     <!-- Capacitor rotacionado -->
-                    <div class="model" data-type="capacitor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -14px;">
+                    <div class="model" data-type="capacitor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -14px; z-index: 3;">
                         <svg class="bigComponent" viewBox="16 -16 16 48">
                             <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 8)">
                                 <path d="m 0,8 21,0"></path>
@@ -362,7 +362,7 @@
                     </div>
                     
                     <!-- Fonte rotacionada -->
-                    <div class="model" data-type="fonte" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -35px;">
+                    <div class="model" data-type="fonte" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -35px; z-index: 3;">
                         <svg class="bigComponent" viewBox="-2 -4 44 56">
                             <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 20)">
                                 <circle fill="#FFFFFF00" cy="24" cx="28" r="20"></circle>
@@ -382,7 +382,7 @@
                     </div>
                     
                     <!-- Indutor rotacionado -->
-                    <div class="model" data-type="indutor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -2px;">
+                    <div class="model" data-type="indutor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -2px; z-index: 3;">
                         <svg class="bigComponent" viewBox="23 -20 8 48">
                             <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
                                 <path d="m 0,4 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 a 3,4 0 0 1 8,0 l 8,0"></path>
@@ -397,7 +397,7 @@
                     </div>
                     
                     <!-- Resistor rotacionado -->
-                    <div class="model" data-type="resistor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -11px;">
+                    <div class="model" data-type="resistor" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -11px; z-index: 3;">
                         <svg class="bigComponent" viewBox="18 -20 12 48">
                             <g stroke="#000" stroke-width="2" fill="none" transform="rotate(90, 24, 4)">
                                 <path d="m 0,4 12,0 2,4 4,-8 4,8 4,-8 4,8 4,-8 2,4 12,0"></path>
@@ -412,7 +412,7 @@
                     </div>
                     
                     <!-- Genérico rotacionado -->
-                    <div class="model" data-type="exemplo" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -31px;">
+                    <div class="model" data-type="exemplo" style="position: absolute; height: 91px; margin-top: -7px; display: none; margin-left: -31px; z-index: 3;">
                         <svg class="bigComponent" viewBox="7 0 34 48">
                             <g stroke="#000" stroke-width="2" fill="#FFFFFF00" transform="rotate(90, 24, 24)">
                                 <path d="m 0,24 8,0"></path>
@@ -430,8 +430,8 @@
                         </svg>
                     </div>
                     
-                    <svg class="model" data-type="wire" height="210" width="400" style="position: absolute; display: none;">
-                        <path d="M150 0 L75 200 L225 200 Z" fill="none" stroke="black" stroke-width="3px" stroke-dasharray="7,7"/>
+                    <svg class="model" data-type="wire" height="210" width="400" style="position: absolute; display: none; z-index: 2;">
+                        <path d="M150 0 L75 200 L225 200 Z" fill="none" stroke="black" stroke-width="5px" stroke-dasharray="7,7"/>
                     </svg>
                 </div>
                 
