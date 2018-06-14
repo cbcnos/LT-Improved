@@ -6,6 +6,8 @@ var newComponent = null;
 var selectedComponent = null;
 //mouse wire
 var newWire = null;
+//selected wire 
+var selectedWire = null;
 
 // last component id
 var id = 0;
@@ -26,6 +28,11 @@ function unselect() {
     if(selectedComponent){
         selectedComponent.find('.bigComponent').css('border-style', 'none');
         selectedComponent = null;
+    }
+    if(selectedWire) {
+        selectedWire.find('path').removeAttr('stroke-dasharray');
+        selectedWire.find('path').attr('stroke', 'black');
+        selectedWire = null;
     }
 
     //show right side bar significant
@@ -252,6 +259,15 @@ function drawWire(wire) {
     
 }
 
+function enableWireSelection (wire) {
+    wire.find('path').css('cursor', 'pointer');
+    wire.click(function(){
+        selectedWire = $(this);
+        selectedWire.find('path').attr('stroke-dasharray', '7,7');
+        selectedWire.find('path').attr('stroke', 'green');
+    });
+}
+
 $("#canvas")[0].addEventListener('click', function(){
     //drop the component
     if (panelItem && newComponent) {
@@ -276,6 +292,7 @@ $("#canvas")[0].addEventListener('click', function(){
                 newWire.data('destinyId', $(this).parent().data('id'));
                 newWire.data('destinyUp', true);
                 newWire.find('path').removeAttr('stroke-dasharray');
+                enableWireSelection(newWire);
                 drawWire(newWire);
                 newWire = null;
             }
@@ -296,6 +313,7 @@ $("#canvas")[0].addEventListener('click', function(){
                 newWire.data('destinyId', $(this).parent().data('id'));
                 newWire.data('destinyUp', false);
                 newWire.find('path').removeAttr('stroke-dasharray');
+                enableWireSelection(newWire);
                 drawWire(newWire);
                 newWire = null;
             }
@@ -321,7 +339,7 @@ $("#canvas")[0].addEventListener('click', function(){
         points[points.length-1].Y = Math.round((points[points.length-1].Y - corners.top) / 15.0) * 15 + corners.top;
         points.push({X: 100, Y: 100});
     }
-    else if(selectedComponent){
+    else if(selectedComponent || selectedWire){
         unselect();
     }
 }, true);
@@ -335,8 +353,9 @@ $(document).keydown(function(e) {
     // delete key
     else if (e.keyCode == 46) {
         //delete component
-        if(selectedComponent){
+        if(selectedComponent)
             selectedComponent.remove();
-        }
+        if (selectedWire)
+            selectedWire.remove();
     }
 });
