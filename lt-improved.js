@@ -6,6 +6,8 @@ var newComponent = null;
 var selectedComponent = null;
 //mouse wire
 var newWire = null;
+//selected wire 
+var selectedWire = null;
 
 // last component id
 var id = 0;
@@ -19,9 +21,18 @@ function unselect() {
         newComponent.remove();
         newComponent = null;
     }
+    if (newWire) {
+        newWire.remove();
+        newWire = null;
+    }
     if(selectedComponent){
         selectedComponent.find('.bigComponent').css('border-style', 'none');
         selectedComponent = null;
+    }
+    if(selectedWire) {
+        selectedWire.find('path').removeAttr('stroke-dasharray');
+        selectedWire.find('path').attr('stroke', 'black');
+        selectedWire = null;
     }
 
     //show right side bar significant
@@ -70,8 +81,8 @@ $(document).on("click", ".component", function(){
     $("#canvas").append(newComponent);
 });
 
-//carry the component
 $("#canvas").mousemove(function(e){
+    //carry the component
     if (panelItem) {
         let X = e.pageX;
         let Y = e.pageY;
@@ -83,6 +94,17 @@ $("#canvas").mousemove(function(e){
             newComponent.css('top', Math.min(Y, corners.bottom-newComponent.height()) + 'px');
             newComponent.css('left', Math.min(X-parseInt(newComponent.css('margin-left')), corners.right-newComponent.find('.bigComponent').width()-parseInt(newComponent.css('margin-left'))) + 'px');
         }
+    }
+    // move the wire edge
+    else if (newWire) {
+        if (newWire.data('points') === undefined) {
+            newWire.data('points', [{X: e.pageX, Y: e.pageY}]);
+        } else {
+            let points = newWire.data('points');
+            points[points.length-1].X = e.pageX;
+            points[points.length-1].Y = e.pageY;
+        }
+        drawWire(newWire);
     }
 });
 
@@ -120,11 +142,11 @@ function enableComponentDrag(element) {
 
 // enable the selection behavior for a component
 function enableComponentSelection(element) {
-    element[0].addEventListener('click', function(){
+    element.find('.bigComponent')[0].addEventListener('click', function(){
         //if(selectedComponent.attr('data-id') != this.getAttribute('data-id')){
 
         //get the selected component
-        selectedComponent = $(this);
+        selectedComponent = $(this).parent();
         //change it's border
         selectedComponent.find('.bigComponent').css('border-style', 'dashed');
         //get it's values
@@ -168,24 +190,87 @@ $(document).ready(function(){
     });
 });
 
+// draw the received wire
 function drawWire(wire) {
-    //console.log(wire.find('path').attr('d'));
     
-    // add the origin point
+    // check if the wire has more than one point
+    if (wire.data('points')===undefined && wire.data('destinyId')===undefined) {
+        wire.attr('height', 0);
+        wire.attr('width', 0);
+        return;
+    }
+    
+    // get the origin point
     let element = $("div[data-id='" + wire.data('originId') + "']");
-    //let newPath = "M" + element.css('left') + ' ' + element.css('top');
-    let newPath = "M" + 0 + ' ' + element.css('top');
+    let origin = {X: parseInt(element.css('left')), Y: parseInt(element.css('top'))};
+    if (!wire.data('originUp'))
+        origin.Y += 91;
     
-    //console.log(element.attr('data-type'));
+    // load the wire points
+    let points = wire.data('points');
     
-    points.push([, element.css('top')]);
+    // check if there is a destiny and update the last point
+    if (wire.data('destinyId') !== undefined) {
+        let element2 = $("div[data-id='" + wire.data('destinyId') + "']");
+        points[points.length-1].X = parseInt(element2.css('left'));
+        points[points.length-1].Y = parseInt(element2.css('top'));
+        if (!wire.data('destinyUp'))
+            points[points.length-1].Y += 91;
+    }
     
-    // add any extra points
+    // find the lowest X and Y to set the div position
+    let min = {X: origin.X, Y: origin.Y};
+    let max = {X: origin.X, Y: origin.Y};
+    points.forEach(function(point){
+        // console.log(point);
+        if (min.X > point.X)
+            min.X = point.X;
+        if (min.Y > point.Y)
+            min.Y = point.Y;
+        if (max.X < point.X)
+            max.X = point.X;
+        if (max.Y < point.Y)
+            max.Y = point.Y;
+    });
+    // console.log('--------------');
     
+    // set the div position
+    wire.css('left', min.X);
+    wire.css('top', min.Y);
+    
+    // set the div size
+    wire.attr('height', max.Y - min.Y);
+    wire.attr('width', max.X - min.X);  
+    
+    // create the svg path
+    let vertical = true;
+    let newPath = 'M' + (origin.X-min.X) + ' ' + (origin.Y-min.Y);
+    points.forEach(function(point, index){
+        let prev = (index == 0 ? origin : points[index-1]);
+        if (vertical)
+            newPath += ' L' + (prev.X-min.X) + ' ' + (point.Y-min.Y);
+        else 
+            newPath += ' L' + (point.X-min.X) + ' ' + (prev.Y-min.Y);
+        newPath += ' L' + (point.X-min.X) + ' ' + (point.Y-min.Y);
+        vertical = !vertical;
+    });
+    
+    // apply the created path 
+    wire.find('path').attr('d', newPath);
+    //console.log(newPath);
 }
 
-//drop the component
+function enableWireSelection (wire) {
+    wire.find('path').css('cursor', 'pointer');
+    wire.click(function(){
+        selectedWire = $(this);
+        selectedWire.find('path').attr('stroke-dasharray', '7,7');
+        selectedWire.find('path').attr('stroke', 'green');
+    });
+}
+
 $("#canvas")[0].addEventListener('click', function(){
+    //drop the component
     if (panelItem && newComponent) {
         
         // fix the position 
@@ -197,14 +282,45 @@ $("#canvas")[0].addEventListener('click', function(){
         
         // configure the wire drawing on the poles
         newComponent.find(".squareUp").mousedown(function(){
+            if (!newWire) {
+                newWire = $(".model[data-type='wire']").clone().show();
+                newWire.attr('class', 'wire');
+                newWire.data('originId', $(this).parent().data('id'));
+                newWire.data('originUp', true);
+                drawWire(newWire);
+                $("#canvas").append(newWire);
+            } else if (newWire.data('originId') != $(this).parent().data('id')) {
+                newWire.data('destinyId', $(this).parent().data('id'));
+                newWire.data('destinyUp', true);
+                newWire.find('path').removeAttr('stroke-dasharray');
+                enableWireSelection(newWire);
+                drawWire(newWire);
+                newWire = null;
+            }
+        }).mouseenter(function(){
             $(this).parent().draggable("disable");
-            /*newWire = $(".model[data-type='wire']").clone().show();
-            newWire.attr('class', 'wire');
-            newWire.data('originId', $(this).parent().data('id'));
-            newWire.data('originUp', true);
-            drawWire(newWire);
-            $("#canvas").append(newWire);*/
-        }).mouseup(function(){
+        }).mouseleave(function(){
+            $(this).parent().draggable("enable");
+        });
+        newComponent.find(".squareDown").mousedown(function(){
+            if (!newWire) {
+                newWire = $(".model[data-type='wire']").clone().show();
+                newWire.attr('class', 'wire');
+                newWire.data('originId', $(this).parent().data('id'));
+                newWire.data('originUp', false);
+                drawWire(newWire);
+                $("#canvas").append(newWire);
+            } else if (newWire.data('originId') != $(this).parent().data('id')) {
+                newWire.data('destinyId', $(this).parent().data('id'));
+                newWire.data('destinyUp', false);
+                newWire.find('path').removeAttr('stroke-dasharray');
+                enableWireSelection(newWire);
+                drawWire(newWire);
+                newWire = null;
+            }
+        }).mouseenter(function(){
+            $(this).parent().draggable("disable");
+        }).mouseleave(function(){
             $(this).parent().draggable("enable");
         });
         
@@ -217,26 +333,30 @@ $("#canvas")[0].addEventListener('click', function(){
         newComponent = null;
         unselect();
     }
-    if(selectedComponent){
+    // add a point to the wire
+    else if (newWire && newWire.data('points') !== undefined) {
+        let points = newWire.data('points');
+        points[points.length-1].X = Math.round((points[points.length-1].X - corners.left) / 15.0) * 15 + corners.left;
+        points[points.length-1].Y = Math.round((points[points.length-1].Y - corners.top) / 15.0) * 15 + corners.top;
+        points.push({X: 100, Y: 100});
+    }
+    else if(selectedComponent || selectedWire){
         unselect();
     }
 }, true);
 
-//set ESC to unselect everything
+//set key shortcuts
 $(document).keydown(function(e) {
-    // escape key
+    // escape key to unselect
     if (e.keyCode == 27) {
         unselect();
     }
-});
-
-//set DEL
-$(document).keydown(function(e) {
     // delete key
-    if (e.keyCode == 46) {
+    else if (e.keyCode == 46) {
         //delete component
-        if(selectedComponent){
+        if(selectedComponent)
             selectedComponent.remove();
-        }
+        if (selectedWire)
+            selectedWire.remove();
     }
 });
