@@ -2,6 +2,8 @@
 var panelItem = null;
 //mouse newComponent
 var newComponent = null;
+//selected component after it's first insertion
+var selectedComponent = null;
 //mouse wire
 var newWire = null;
 
@@ -9,11 +11,11 @@ var newWire = null;
 var id = 0;
 
 function unselect() {
-    if (panelItem) {
+    if(panelItem) {
         panelItem.find("svg").css("border-style", "none");
         panelItem = null;
     }
-    if (newComponent) {
+    if(newComponent) {
         newComponent.remove();
         newComponent = null;
     }
@@ -21,6 +23,15 @@ function unselect() {
         newWire.remove();
         newWire = null;
     }
+    if(selectedComponent){
+        selectedComponent.find('.bigComponent').css('border-style', 'none');
+        selectedComponent = null;
+    }
+
+    //show right side bar significant
+    $('#barRightEdit').hide();
+    $('#barRightSignificant').show();
+
 }
 
 function getCanvasCorners() {
@@ -105,7 +116,7 @@ function getDragContainment(element) {
 }
 
 // enable the dragginb behavior for a component
-function enableComponentDrag (element) {
+function enableComponentDrag(element) {
     element.draggable({
         // containment: An array defining a bounding box in the form [ x1, y1, x2, y2 ]
         containment: getDragContainment(element),
@@ -121,6 +132,56 @@ function enableComponentDrag (element) {
         }
     });
 }
+
+// enable the selection behavior for a component
+function enableComponentSelection(element) {
+    element[0].addEventListener('click', function(){
+        //if(selectedComponent.attr('data-id') != this.getAttribute('data-id')){
+
+        //get the selected component
+        selectedComponent = $(this);
+        //change it's border
+        selectedComponent.find('.bigComponent').css('border-style', 'dashed');
+        //get it's values
+        //let name = selectedComponent.find('.componentLabel text').val();
+        //let name = selectedComponent.find('.componentLabel text').prop('tagName');
+        let componentName = selectedComponent.find('.componentLabel text')[0].textContent;
+        let componentValue = selectedComponent.find('.componentProperty text')[0].textContent;
+
+        //show right side bar editor
+        $('#barRightSignificant').hide();
+        $('#barRightEdit').show();
+        //set input values
+        $('#sideBarComponentName').val(componentName);
+        $('#sideBarComponentValue').val(componentValue);
+
+    }, true);
+}
+
+//set the right side bar input listeners
+$(document).ready(function(){
+    //name input listener
+    $('#sideBarComponentName')[0].addEventListener('keyup', function(event){
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            //change the component label
+            selectedComponent.find('.componentLabel text')[0].textContent = this.value;
+        }
+    });
+
+    //value input listener
+    $('#sideBarComponentValue')[0].addEventListener('keyup', function(event){
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            //change the component label
+            selectedComponent.find('.componentProperty text')[0].textContent = this.value;
+        }
+    });
+});
 
 // draw the received wire
 function drawWire(wire) {
@@ -191,7 +252,7 @@ function drawWire(wire) {
     
 }
 
-$("#canvas").click(function(){
+$("#canvas")[0].addEventListener('click', function(){
     //drop the component
     if (panelItem && newComponent) {
         
@@ -246,6 +307,9 @@ $("#canvas").click(function(){
         
         // allow the component to be dragged
         enableComponentDrag(newComponent);
+
+        // allow the component to be selected
+        enableComponentSelection(newComponent);
         
         newComponent = null;
         unselect();
@@ -258,12 +322,26 @@ $("#canvas").click(function(){
         points.push({X: 100, Y: 100});
         console.log('ueba');
     }
-});
+    if(selectedComponent){
+        unselect();
+    }
+}, true);
 
 //set ESC to unselect everything
 $(document).keydown(function(e) {
     // escape key
     if (e.keyCode == 27) {
         unselect();
+    }
+});
+
+//set DEL
+$(document).keydown(function(e) {
+    // delete key
+    if (e.keyCode == 46) {
+        //delete component
+        if(selectedComponent){
+            selectedComponent.remove();
+        }
     }
 });
