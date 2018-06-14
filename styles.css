@@ -244,6 +244,28 @@ html, body {
     opacity: 1;
 }
 
+.componentLabel{
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    height: 15px;
+}
+
+.componentLabel text{
+    font-size: 15px;
+}
+
+.componentProperty{
+    position: absolute;
+    left: 30px;
+    top: 70px;
+    height: 15px;
+}
+
+.componentProperty text{
+    font-size: 15px;
+}
+
 /* Right bar */
 .bar-right {
     flex: 0 0 18%;
