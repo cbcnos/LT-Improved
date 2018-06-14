@@ -320,25 +320,20 @@ $("#canvas")[0].addEventListener('click', function(){
         points[points.length-1].X = Math.round((points[points.length-1].X - corners.left) / 15.0) * 15 + corners.left;
         points[points.length-1].Y = Math.round((points[points.length-1].Y - corners.top) / 15.0) * 15 + corners.top;
         points.push({X: 100, Y: 100});
-        console.log('ueba');
     }
-    if(selectedComponent){
+    else if(selectedComponent){
         unselect();
     }
 }, true);
 
-//set ESC to unselect everything
+//set key shortcuts
 $(document).keydown(function(e) {
-    // escape key
+    // escape key to unselect
     if (e.keyCode == 27) {
         unselect();
     }
-});
-
-//set DEL
-$(document).keydown(function(e) {
     // delete key
-    if (e.keyCode == 46) {
+    else if (e.keyCode == 46) {
         //delete component
         if(selectedComponent){
             selectedComponent.remove();
