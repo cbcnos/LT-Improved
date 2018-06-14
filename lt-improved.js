@@ -1,19 +1,21 @@
 //panel item
-var selected = null;
-//mouse component
-var component = null;
+var panelItem = null;
+//mouse newComponent
+var newComponent = null;
+//mouse wire
+var newWire = null;
 
 // last component id
 var id = 0;
 
 function unselect() {
-    if (selected) {
-        selected.find("svg").css("border-style", "none");
-        selected = null;
+    if (panelItem) {
+        panelItem.find("svg").css("border-style", "none");
+        panelItem = null;
     }
-    if (component) {
-        component.remove();
-        component = null;
+    if (newComponent) {
+        newComponent.remove();
+        newComponent = null;
     }
 }
 
@@ -44,22 +46,22 @@ $(document).on("click", ".component", function(){
     unselect();
     
     // select this element
-    selected = $(this);
-    selected.find("svg").css("border-style", "dashed");
+    panelItem = $(this);
+    panelItem.find("svg").css("border-style", "dashed");
     
     // create the new component
-    component = $(".model[data-type='" + selected.attr("data-type") + "']").clone().show();
-    component.attr('data-id', id++);
-    component.removeAttr("class");
-    component.css("position", "absolute");
-    component.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
-    component.css('left', (corners.left-parseInt(component.css('margin-left'))) + 'px');
-    $("#canvas").append(component);
+    newComponent = $(".model[data-type='" + panelItem.attr("data-type") + "']").clone().show();
+    newComponent.attr('data-id', id++);
+    newComponent.removeAttr("class");
+    newComponent.css("position", "absolute");
+    newComponent.css('top', corners.top + (corners.bottom-corners.top)/2-50 + 'px');
+    newComponent.css('left', (corners.left-parseInt(newComponent.css('margin-left'))) + 'px');
+    $("#canvas").append(newComponent);
 });
 
 //carry the component
 $("#canvas").mousemove(function(e){
-    if (selected) {
+    if (panelItem) {
         let X = e.pageX;
         let Y = e.pageY;
         if (    X >= corners.left && 
@@ -67,8 +69,8 @@ $("#canvas").mousemove(function(e){
                 X <= corners.right && 
                 Y <= corners.bottom) {
             //console.log(e.pageX + ' ' + e.pageY,);
-            component.css('top', Math.min(Y, corners.bottom-component.height()) + 'px');
-            component.css('left', Math.min(X-parseInt(component.css('margin-left')), corners.right-component.find('.bigComponent').width()-parseInt(component.css('margin-left'))) + 'px');
+            newComponent.css('top', Math.min(Y, corners.bottom-newComponent.height()) + 'px');
+            newComponent.css('left', Math.min(X-parseInt(newComponent.css('margin-left')), corners.right-newComponent.find('.bigComponent').width()-parseInt(newComponent.css('margin-left'))) + 'px');
         }
     }
 });
@@ -105,28 +107,50 @@ function enableComponentDrag (element) {
     });
 }
 
+function drawWire(wire) {
+    //console.log(wire.find('path').attr('d'));
+    
+    // add the origin point
+    let element = $("div[data-id='" + wire.data('originId') + "']");
+    //let newPath = "M" + element.css('left') + ' ' + element.css('top');
+    let newPath = "M" + 0 + ' ' + element.css('top');
+    
+    //console.log(element.attr('data-type'));
+    
+    points.push([, element.css('top')]);
+    
+    // add any extra points
+    
+}
+
 //drop the component
 $("#canvas").click(function(){
-    if (selected && component) {
+    if (panelItem && newComponent) {
         
         // fix the position 
-        fixPosition(component);
+        fixPosition(newComponent);
         
         // show the pole squares
-        component.find(".squareUp").show();
-        component.find(".squareDown").show();
+        newComponent.find(".squareUp").show();
+        newComponent.find(".squareDown").show();
         
         // configure the wire drawing on the poles
-        component.find(".squareUp").mousedown(function(){
+        newComponent.find(".squareUp").mousedown(function(){
             $(this).parent().draggable("disable");
+            /*newWire = $(".model[data-type='wire']").clone().show();
+            newWire.attr('class', 'wire');
+            newWire.data('originId', $(this).parent().data('id'));
+            newWire.data('originUp', true);
+            drawWire(newWire);
+            $("#canvas").append(newWire);*/
         }).mouseup(function(){
             $(this).parent().draggable("enable");
         });
         
         // allow the component to be dragged
-        enableComponentDrag(component);
+        enableComponentDrag(newComponent);
         
-        component = null;
+        newComponent = null;
         unselect();
     }
 });
