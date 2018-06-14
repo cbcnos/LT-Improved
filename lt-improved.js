@@ -142,11 +142,11 @@ function enableComponentDrag(element) {
 
 // enable the selection behavior for a component
 function enableComponentSelection(element) {
-    element.find('.bigComponent')[0].addEventListener('click', function(){
+    element[0].addEventListener('click', function(){
         //if(selectedComponent.attr('data-id') != this.getAttribute('data-id')){
 
         //get the selected component
-        selectedComponent = $(this).parent();
+        selectedComponent = $(this);
         //change it's border
         selectedComponent.find('.bigComponent').css('border-style', 'dashed');
         //get it's values
@@ -280,6 +280,12 @@ $("#canvas")[0].addEventListener('click', function(){
         newComponent.find(".squareUp").show();
         newComponent.find(".squareDown").show();
         
+        // allow the component to be dragged
+        enableComponentDrag(newComponent);
+
+        // allow the component to be selected
+        enableComponentSelection(newComponent);
+        
         // configure the wire drawing on the poles
         newComponent.find(".squareUp").mousedown(function(){
             if (!newWire) {
@@ -323,12 +329,6 @@ $("#canvas")[0].addEventListener('click', function(){
         }).mouseleave(function(){
             $(this).parent().draggable("enable");
         });
-        
-        // allow the component to be dragged
-        enableComponentDrag(newComponent);
-
-        // allow the component to be selected
-        enableComponentSelection(newComponent);
         
         newComponent = null;
         unselect();

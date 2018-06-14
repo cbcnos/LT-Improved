@@ -247,6 +247,7 @@ html, body {
 .componentLabel{
     position: absolute;
     height: 15px;
+    cursor: move;
 }
 
 .componentLabel text{
@@ -257,6 +258,7 @@ html, body {
 .componentProperty{
     position: absolute;
     height: 15px;
+    cursor: move;
 }
 
 .componentProperty text{
