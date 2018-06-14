@@ -183,3 +183,14 @@ $(document).keydown(function(e) {
         unselect();
     }
 });
+
+//set DEL
+$(document).keydown(function(e) {
+    // delete key
+    if (e.keyCode == 46) {
+        //delete component
+        if(selectedComponent){
+            selectedComponent.remove();
+        }
+    }
+});
