@@ -23,6 +23,11 @@ function unselect() {
         selectedComponent.find('.bigComponent').css('border-style', 'none');
         selectedComponent = null;
     }
+
+    //show right side bar significant
+    $('#barRightEdit').hide();
+    $('#barRightSignificant').show();
+
 }
 
 function getCanvasCorners() {
@@ -116,11 +121,52 @@ function enableComponentDrag(element) {
 // enable the selection behavior for a component
 function enableComponentSelection(element) {
     element[0].addEventListener('click', function(){
+        //if(selectedComponent.attr('data-id') != this.getAttribute('data-id')){
+
+        //get the selected component
         selectedComponent = $(this);
+        //change it's border
         selectedComponent.find('.bigComponent').css('border-style', 'dashed');
+        //get it's values
+        //let name = selectedComponent.find('.componentLabel text').val();
+        //let name = selectedComponent.find('.componentLabel text').prop('tagName');
+        let componentName = selectedComponent.find('.componentLabel text')[0].textContent;
+        let componentValue = selectedComponent.find('.componentProperty text')[0].textContent;
+
+        //show right side bar editor
+        $('#barRightSignificant').hide();
+        $('#barRightEdit').show();
+        //set input values
+        $('#sideBarComponentName').val(componentName);
+        $('#sideBarComponentValue').val(componentValue);
 
     }, true);
 }
+
+//set the right side bar input listeners
+$(document).ready(function(){
+    //name input listener
+    $('#sideBarComponentName')[0].addEventListener('keyup', function(event){
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            //change the component label
+            selectedComponent.find('.componentLabel text')[0].textContent = this.value;
+        }
+    });
+
+    //value input listener
+    $('#sideBarComponentValue')[0].addEventListener('keyup', function(event){
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            //change the component label
+            selectedComponent.find('.componentProperty text')[0].textContent = this.value;
+        }
+    });
+});
 
 function drawWire(wire) {
     //console.log(wire.find('path').attr('d'));
