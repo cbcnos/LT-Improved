@@ -353,10 +353,10 @@
                         <svg class="squareDown" viewBox="0 0 15 15" style="left:7px;">
                             <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
                         </svg>
-                        <svg class="componentLabel" viewBox="0 0 100 15">
+                        <svg class="componentLabel" viewBox="0 0 100 15" style="top:20px; left:-20px;">
                             <text x="0" y="15">C0</text>
                         </svg>
-                        <svg class="componentProperty" viewBox="0 0 100 15">
+                        <svg class="componentProperty" viewBox="0 0 100 15" style="top:70px; left:34px;">
                             <text x="0" y="15">1uF</text>
                         </svg>
                     </div>
@@ -379,6 +379,12 @@
                         <svg class="squareDown" viewBox="0 0 15 15" style="left:28px;">
                             <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
                         </svg>
+                        <svg class="componentLabel" viewBox="0 0 100 15" style="top:20px; left:-20px;">
+                            <text x="0" y="15">V0</text>
+                        </svg>
+                        <svg class="componentProperty" viewBox="0 0 100 15" style="top:70px; left:74px;">
+                            <text x="0" y="15">5V</text>
+                        </svg>
                     </div>
                     
                     <!-- Indutor rotacionado -->
@@ -394,6 +400,12 @@
                         <svg class="squareDown" viewBox="0 0 15 15" style="left:-6px;">
                             <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
                         </svg>
+                        <svg class="componentLabel" viewBox="0 0 100 15" style="top:20px; left:-22px;">
+                            <text x="0" y="15">L0</text>
+                        </svg>
+                        <svg class="componentProperty" viewBox="0 0 100 15" style="top:70px; left:22px;">
+                            <text x="0" y="15">2H</text>
+                        </svg>
                     </div>
                     
                     <!-- Resistor rotacionado -->
@@ -408,6 +420,12 @@
                         </svg>
                         <svg class="squareDown" viewBox="0 0 15 15" style="left:4px;">
                             <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
+                        </svg>
+                        <svg class="componentLabel" viewBox="0 0 100 15" style="top:20px; left:-22px;">
+                            <text x="0" y="15">R0</text>
+                        </svg>
+                        <svg class="componentProperty" viewBox="0 0 100 15" style="top:70px; left:28px;">
+                            <text x="0" y="15">1kΩ</text>
                         </svg>
                     </div>
                     
@@ -428,6 +446,12 @@
                         <svg class="squareDown" viewBox="0 0 15 15" style="left:24px;">
                             <rect width="15" height="15" style="fill:none;stroke-width:6;stroke:rgb(0,193,24)" />
                         </svg>
+                        <svg class="componentLabel" viewBox="0 0 100 15" style="top:20px; left:-20px;">
+                            <text x="0" y="15">E0</text>
+                        </svg>
+                        <svg class="componentProperty" viewBox="0 0 100 15" style="top:70px; left:66px;">
+                            <text x="0" y="15">1uE</text>
+                        </svg>
                     </div>
                     
                     <svg class="model" data-type="wire" height="210" width="400" style="position: absolute; display: none;">
@@ -436,20 +460,20 @@
                 </div>
                 
                 <!-- Edit component -->
-                <!--div class="gray bar-right">
+                <div id="barRightSignificant" class="gray bar-right">
                     <p class="sidebar-title">Editar componente</p>
                     <p class="sidebar-significant">Selecione um componente do canvas para editá-lo.</p>
-                </div-->
+                </div>
 
-                <div class="gray bar-right">
+                <div id="barRightEdit" class="gray bar-right">
                     <p class="sidebar-title">Editar componente</p>
                     <div class="component-attribute">
                         <p>Nome</p>
-                        <input type="text" class="form-control" placeholder="">
+                        <input id="sideBarComponentName" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="component-attribute">
                         <p>Valor</p>
-                        <input type="text" class="form-control" placeholder="">
+                        <input id="sideBarComponentValue" type="text" class="form-control" placeholder="">
                     </div>
                 </div>
 
